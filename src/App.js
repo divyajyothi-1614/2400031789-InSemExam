@@ -1,57 +1,48 @@
-import React, { useState } from 'react';
-import './App.css';
+import React from "react";
+import "./App.css";
 
 function App() {
-  const [city, setCity] = useState('');
-  const [weather, setWeather] = useState(null);
-  const [error, setError] = useState('');
-
-  const getWeather = async () => {
-    if (!city) {
-      setError('Please enter a city name.');
-      return;
-    }
-
-    try {
-      // ✅ Use backticks for template string
-      const response = await fetch(`https://wttr.in/${city}?format=j1`);
-      if (!response.ok) throw new Error('Failed to fetch weather');
-      const data = await response.json();
-
-      setWeather({
-        location: city,
-        tempC: data.current_condition[0].temp_C,
-        description: data.current_condition[0].weatherDesc[0].value,
-      });
-      setError('');
-    } catch (err) {
-      setError('Could not fetch weather data.');
-      setWeather(null);
-    }
-  };
-
   return (
     <div className="App">
-      <h1>Simple Weather App</h1>
+      <header className="header">
+        <h1>KL Student Portal</h1>
+        <p>Welcome, Divya Jyothi Kondepati</p>
+      </header>
 
-      <input
-        type="text"
-        placeholder="Enter city name"
-        value={city}
-        onChange={(e) => setCity(e.target.value)}
-      />
+      <section className="student-info">
+        <h2>About Student</h2>
+        <p>
+          Hello! I am a B.Tech student at KL University. I’m passionate about
+          web development and enjoy building creative web applications using
+          React, HTML, and CSS.
+        </p>
+      </section>
 
-      <button onClick={getWeather}>Get Weather</button>
-
-      {error && <p style={{ color: 'red' }}>{error}</p>}
-
-      {weather && (
-        <div style={{ marginTop: '20px' }}>
-          <h2>Weather in {weather.location}</h2>
-          <p>Temperature: {weather.tempC}°C</p>
-          <p>Condition: {weather.description}</p>
+      <section className="projects">
+        <h2>My Projects</h2>
+        <div className="project-list">
+          <div className="project-card">
+            <h3>Weather App</h3>
+            <p>A simple weather app built with React and OpenWeather API.</p>
+          </div>
+          <div className="project-card">
+            <h3>Student Dashboard</h3>
+            <p>
+              A responsive student dashboard displaying attendance and grades.
+            </p>
+          </div>
+          <div className="project-card">
+            <h3>Portfolio Website</h3>
+            <p>
+              A personal portfolio to showcase my academic and coding projects.
+            </p>
+          </div>
         </div>
-      )}
+      </section>
+
+      <footer className="footer">
+        <p>© 2025 KL University | All Rights Reserved</p>
+      </footer>
     </div>
   );
 }
